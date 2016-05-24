@@ -81,7 +81,7 @@ class PathernTree extends Tree{
         
         self::_merge($tree->rootNode,$this->rootNode);
     }
-    
+ 
     //this function will recursively merge the tree with the pathern
     //working
     public static function _merge($treeNode,$pathernNode){
