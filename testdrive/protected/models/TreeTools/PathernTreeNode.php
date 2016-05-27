@@ -54,12 +54,14 @@ class PathernTreeNode extends BaseTreeNode{
     
     public static function matchStringToLemma($str,$array){
         
+        $str = trim($str);
         if(is_array($array)){
             return in_array($str, $array) ? self::valEqualLemma : 0;
         }else{
-            if($array == "*")
-                return self::valEqualLemma;
+            if($array == "*" )
+                return self::valEqualLemma;            
         }
+        //print_r("dont match lemma $str with ".json_encode($array));
         return 0;
     }
     

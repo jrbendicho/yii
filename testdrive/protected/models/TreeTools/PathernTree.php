@@ -52,6 +52,7 @@ class PathernTree extends Tree{
         $type = $treeNode->info->type;
         $match = function($pN) use ($type){
             
+            //print_r("<pre> {$pN->info[0]->type} against $type </pre>");
             foreach($pN->info as $s){
                 if($s->type == $type)
                     return true;

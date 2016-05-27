@@ -575,3 +575,105 @@ Stack trace:
 REQUEST_URI=/yii/testdrive/index.php?r=/Custom/StanfordParser&q=how%20can%20i%20found%20red%20shoes%20in%20tampa
 in F:\xampp\htdocs\yii\testdrive\protected\controllers\CustomController.php (72)
 in F:\xampp\htdocs\yii\testdrive\index.php (13)
+2016/05/25 05:20:21 [error] [php] Undefined property: PathernTreeNode::$type (F:\xampp\htdocs\yii\testdrive\protected\models\TreeTools\PathernTree.php:55)
+Stack trace:
+#0 F:\xampp\htdocs\yii\testdrive\protected\models\TreeTools\PathernTree.php(46): _match()
+#1 F:\xampp\htdocs\yii\testdrive\protected\controllers\CustomController.php(103): PathernTree->matchAgainstTree()
+#2 F:\xampp\htdocs\yii\framework\web\actions\CInlineAction.php(49): CustomController->action_ajaxMatchSentence()
+#3 F:\xampp\htdocs\yii\framework\web\CController.php(308): CInlineAction->runWithParams()
+#4 F:\xampp\htdocs\yii\framework\web\CController.php(286): CustomController->runAction()
+#5 F:\xampp\htdocs\yii\framework\web\CController.php(265): CustomController->runActionWithFilters()
+#6 F:\xampp\htdocs\yii\framework\web\CWebApplication.php(282): CustomController->run()
+#7 F:\xampp\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#8 F:\xampp\htdocs\yii\framework\base\CApplication.php(185): CWebApplication->processRequest()
+#9 F:\xampp\htdocs\yii\testdrive\index.php(13): CWebApplication->run()
+REQUEST_URI=/yii/testdrive/index.php?
+in F:\xampp\htdocs\yii\testdrive\protected\models\TreeTools\PathernTree.php (55)
+in F:\xampp\htdocs\yii\testdrive\protected\models\TreeTools\Tree.php (29)
+in F:\xampp\htdocs\yii\testdrive\protected\models\TreeTools\PathernTree.php (63)
+2016/05/25 05:20:43 [error] [php] Undefined property: PathernTreeNode::$nifo (F:\xampp\htdocs\yii\testdrive\protected\models\TreeTools\PathernTree.php:55)
+Stack trace:
+#0 F:\xampp\htdocs\yii\testdrive\protected\models\TreeTools\PathernTree.php(46): _match()
+#1 F:\xampp\htdocs\yii\testdrive\protected\controllers\CustomController.php(103): PathernTree->matchAgainstTree()
+#2 F:\xampp\htdocs\yii\framework\web\actions\CInlineAction.php(49): CustomController->action_ajaxMatchSentence()
+#3 F:\xampp\htdocs\yii\framework\web\CController.php(308): CInlineAction->runWithParams()
+#4 F:\xampp\htdocs\yii\framework\web\CController.php(286): CustomController->runAction()
+#5 F:\xampp\htdocs\yii\framework\web\CController.php(265): CustomController->runActionWithFilters()
+#6 F:\xampp\htdocs\yii\framework\web\CWebApplication.php(282): CustomController->run()
+#7 F:\xampp\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#8 F:\xampp\htdocs\yii\framework\base\CApplication.php(185): CWebApplication->processRequest()
+#9 F:\xampp\htdocs\yii\testdrive\index.php(13): CWebApplication->run()
+REQUEST_URI=/yii/testdrive/index.php?
+in F:\xampp\htdocs\yii\testdrive\protected\models\TreeTools\PathernTree.php (55)
+in F:\xampp\htdocs\yii\testdrive\protected\models\TreeTools\Tree.php (29)
+in F:\xampp\htdocs\yii\testdrive\protected\models\TreeTools\PathernTree.php (63)
+2016/05/27 03:02:30 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "BotManager".' in F:\xampp\htdocs\yii\framework\web\CController.php:483
+Stack trace:
+#0 F:\xampp\htdocs\yii\framework\web\CController.php(270): CController->missingAction('BotManager')
+#1 F:\xampp\htdocs\yii\framework\web\CWebApplication.php(282): CController->run('BotManager')
+#2 F:\xampp\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('Custom/BotManag...')
+#3 F:\xampp\htdocs\yii\framework\base\CApplication.php(185): CWebApplication->processRequest()
+#4 F:\xampp\htdocs\yii\testdrive\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/yii/testdrive/index.php/Custom/BotManager
+---
+2016/05/27 03:31:53 [error] [php] include(CDBCriteria.php): failed to open stream: No such file or directory (F:\xampp\htdocs\yii\framework\YiiBase.php:432)
+Stack trace:
+#0 F:\xampp\htdocs\yii\testdrive\protected\controllers\CustomController.php(93): spl_autoload_call()
+#1 F:\xampp\htdocs\yii\framework\web\actions\CInlineAction.php(49): CustomController->action_getBotsByName()
+#2 F:\xampp\htdocs\yii\framework\web\CController.php(308): CInlineAction->runWithParams()
+#3 F:\xampp\htdocs\yii\framework\web\CController.php(286): CustomController->runAction()
+#4 F:\xampp\htdocs\yii\framework\web\CController.php(265): CustomController->runActionWithFilters()
+#5 F:\xampp\htdocs\yii\framework\web\CWebApplication.php(282): CustomController->run()
+#6 F:\xampp\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#7 F:\xampp\htdocs\yii\framework\base\CApplication.php(185): CWebApplication->processRequest()
+#8 F:\xampp\htdocs\yii\testdrive\index.php(13): CWebApplication->run()
+REQUEST_URI=/yii/testdrive/index.php/Custom/_getBotsByName?query=hello
+in F:\xampp\htdocs\yii\testdrive\protected\controllers\CustomController.php (93)
+in F:\xampp\htdocs\yii\testdrive\index.php (13)
+2016/05/27 03:31:54 [error] [php] include(CDBCriteria.php): failed to open stream: No such file or directory (F:\xampp\htdocs\yii\framework\YiiBase.php:432)
+Stack trace:
+#0 F:\xampp\htdocs\yii\testdrive\protected\controllers\CustomController.php(93): spl_autoload_call()
+#1 F:\xampp\htdocs\yii\framework\web\actions\CInlineAction.php(49): CustomController->action_getBotsByName()
+#2 F:\xampp\htdocs\yii\framework\web\CController.php(308): CInlineAction->runWithParams()
+#3 F:\xampp\htdocs\yii\framework\web\CController.php(286): CustomController->runAction()
+#4 F:\xampp\htdocs\yii\framework\web\CController.php(265): CustomController->runActionWithFilters()
+#5 F:\xampp\htdocs\yii\framework\web\CWebApplication.php(282): CustomController->run()
+#6 F:\xampp\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#7 F:\xampp\htdocs\yii\framework\base\CApplication.php(185): CWebApplication->processRequest()
+#8 F:\xampp\htdocs\yii\testdrive\index.php(13): CWebApplication->run()
+REQUEST_URI=/yii/testdrive/index.php/Custom/_getBotsByName?query=hello+world
+in F:\xampp\htdocs\yii\testdrive\protected\controllers\CustomController.php (93)
+in F:\xampp\htdocs\yii\testdrive\index.php (13)
+2016/05/27 03:32:59 [error] [exception.CDbException] exception 'CDbException' with message 'Table "tbl_bots" does not have a column named "0".' in F:\xampp\htdocs\yii\framework\db\schema\CDbCommandBuilder.php:697
+Stack trace:
+#0 F:\xampp\htdocs\yii\framework\db\ar\CActiveRecord.php(1540): CDbCommandBuilder->createColumnCriteria(Object(CMysqlTableSchema), Array, '', Array, '`t`.')
+#1 F:\xampp\htdocs\yii\testdrive\protected\controllers\CustomController.php(93): CActiveRecord->findAllByAttributes(Array)
+#2 F:\xampp\htdocs\yii\framework\web\actions\CInlineAction.php(49): CustomController->action_getBotsByName()
+#3 F:\xampp\htdocs\yii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#4 F:\xampp\htdocs\yii\framework\web\CController.php(286): CController->runAction(Object(CInlineAction))
+#5 F:\xampp\htdocs\yii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#6 F:\xampp\htdocs\yii\framework\web\CWebApplication.php(282): CController->run('_getBotsByName')
+#7 F:\xampp\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController('Custom/_getBots...')
+#8 F:\xampp\htdocs\yii\framework\base\CApplication.php(185): CWebApplication->processRequest()
+#9 F:\xampp\htdocs\yii\testdrive\index.php(13): CApplication->run()
+#10 {main}
+REQUEST_URI=/yii/testdrive/index.php/Custom/_getBotsByName?query=hello+world+d
+HTTP_REFERER=http://localhost/yii/testdrive/index.php/Custom/BotManager
+---
+2016/05/27 03:48:10 [error] [php] Trying to get property of non-object (F:\xampp\htdocs\yii\testdrive\protected\views\CustomViews\partials\_botInfo.php:8)
+Stack trace:
+#0 F:\xampp\htdocs\yii\framework\web\CController.php(869): CustomController->renderFile()
+#1 F:\xampp\htdocs\yii\testdrive\protected\controllers\CustomController.php(105): CustomController->renderPartial()
+#2 F:\xampp\htdocs\yii\framework\web\actions\CInlineAction.php(49): CustomController->action_loadBotInfo()
+#3 F:\xampp\htdocs\yii\framework\web\CController.php(308): CInlineAction->runWithParams()
+#4 F:\xampp\htdocs\yii\framework\web\CController.php(286): CustomController->runAction()
+#5 F:\xampp\htdocs\yii\framework\web\CController.php(265): CustomController->runActionWithFilters()
+#6 F:\xampp\htdocs\yii\framework\web\CWebApplication.php(282): CustomController->run()
+#7 F:\xampp\htdocs\yii\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#8 F:\xampp\htdocs\yii\framework\base\CApplication.php(185): CWebApplication->processRequest()
+#9 F:\xampp\htdocs\yii\testdrive\index.php(13): CWebApplication->run()
+REQUEST_URI=/yii/testdrive/index.php/Custom/_loadBotInfo
+in F:\xampp\htdocs\yii\testdrive\protected\views\CustomViews\partials\_botInfo.php (8)
+in F:\xampp\htdocs\yii\testdrive\protected\controllers\CustomController.php (105)
+in F:\xampp\htdocs\yii\testdrive\index.php (13)

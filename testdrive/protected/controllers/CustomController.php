@@ -80,6 +80,34 @@ class CustomController extends Controller{
         $this->render("/CustomViews/StanfordTest",array("dependecieTree"=>$depTree,"patherTree"=>$pathernTree,"modPathernTree"=>$modPathernTree));
     }
     
+    public function actionBotManager(){
+        
+        $this->layout = "basic";
+        $this->render("/CustomViews/BotManager");
+    }
+    
+    public function action_getBotsByName(){
+        
+        $query = Yii::app()->request->getParam("query");
+                
+        $crit = new CDbCriteria();
+        $crit->addCondition("name like '%$query%'");
+        $results = tbl_bots::model()->findAll($crit);
+        print_r(json_encode($results));
+        die;
+    }
+    
+    public function action_loadBotInfo(){
+        $botId = Yii::app()->request->getParam("id");
+        
+        $botModel = tbl_bots::model()->findByPk($botId);
+       /* print_r($botId);
+        print_R($botModel);
+        die;*/
+        
+        $this->renderPartial("/CustomViews/partials/_botInfo",array("botModel"=>$botModel));
+    }
+    
     public function action_ajaxMatchSentence(){
         
         $q = Yii::app()->request->getParam("q");
