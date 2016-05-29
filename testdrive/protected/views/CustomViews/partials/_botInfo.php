@@ -12,8 +12,10 @@ $patterns = tbl_patternTree::model()->findAllByAttributes(array("bot_id"=>$botMo
 <div class="col-md-12">
     <div class="col-md-12">
         <?php foreach($patterns as $p){ ?>
-        <div class="col-md-1"><?php echo $p->id;?></div> 
-        <div class="col-md-4"><?php echo $p->initial_sentence;?></div>    
+        <div class="row">
+            <div class="col-md-1"><?php echo $p->id;?></div> 
+            <div class="col-md-4"><?php echo $p->initial_sentence;?></div>    
+        </div>
         <?php } ?>
     </div>    
 </div>

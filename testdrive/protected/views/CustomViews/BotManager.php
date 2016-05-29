@@ -11,6 +11,12 @@
     <div class="col-md-6 col-md-offset-3">
         <input type="text" class="typeahead form-control">
     </div>
+    
+    <div class="col-md-6 col-md-offset-3">
+        <div id="patternsContainer">
+            
+        </div>
+    </div>
 </div>
 
 <script type="text/javascript" src="<?php echo Yii::app()->baseUrl;?>/js/bootstrap-typeahead.js"></script>
@@ -31,7 +37,7 @@ $(document).ready(function(){
                 data:{id:element.value},                
               }).done(function(result) {
                   //result = JSON.parse(result);
-                  console.log(result);                  
+                  $("#patternsContainer").html(result);               
               });
         }
     });
