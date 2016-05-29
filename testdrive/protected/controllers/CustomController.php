@@ -215,7 +215,7 @@ class CustomController extends Controller{
         
         if($q){
             $primary_tag = connectorStanfordParser::getPrimaryTag($q);
-            print_R($primary_tag);
+            print_r($primary_tag);
         }
     }
 }
