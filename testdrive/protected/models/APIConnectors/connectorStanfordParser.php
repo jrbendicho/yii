@@ -45,6 +45,33 @@ class connectorStanfordParser{
         return $object;
     }
     
+    public static function getPrimaryTag($string){
+        
+        $object = self::parse($string);
+        $property = "basic-dependencies";
+        $depTree = new DependencieTree($object->sentences[0]->$property);
+        
+        $find = function($node){
+            return $node->info->type == "dobj" ? true : false;
+        };
+        $node = $depTree->locate($find);
+        
+        if($node){
+            return $node->info->lemma;
+        }
+        
+        $find = function($node){
+            return $node->info->type == "nsub" ? true : false;
+        };
+        $node = $depTree->locate($find);
+        if($node){
+            return $node->info->lemma . " " . $depTree->rootNode->info->lemma;
+        }
+        
+        return $depTree->rootNode->info->lemma;
+                
+    }
+    
    
 }
 

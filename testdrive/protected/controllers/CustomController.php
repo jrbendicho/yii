@@ -208,5 +208,15 @@ class CustomController extends Controller{
         $this->layout = "basic";
         $this->render("/CustomViews/TreeTest");
     }
+    
+    public function actionTestPrimaryTag(){
+        
+        $q = Yii::app()->request->getParam("q");
+        
+        if($q){
+            $primary_tag = connectorStanfordParser::getPrimaryTag($q);
+            print_R($primary_tag);
+        }
+    }
 }
 
