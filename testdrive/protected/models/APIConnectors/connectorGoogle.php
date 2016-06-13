@@ -19,7 +19,7 @@ class connectorGoogle {
         ;
     }
     
-    public function getPlacesByLocation($location,$type = null,$name=null,$page=0){
+    public function getPlacesByLocation($location,$page=0,$params = array()){
                 
         $url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?";
         
@@ -27,13 +27,7 @@ class connectorGoogle {
         $loc = $location['lat'].",".$location['lon'];//-33.8670,151.1957
         $params['location']= $loc;        
         $params['radius'] = isset($location['radius'])?$location['radius']:500;
-        $params['page']=$page;
-        
-        if($type)
-            $params['types'] = $type;
-        
-        if($name)
-            $params['name'] = $name;
+       // $params['page']=$page;               
         
         $url = $url . http_build_query($params);
         $json = @file_get_contents($url);
