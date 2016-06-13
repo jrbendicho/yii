@@ -111,13 +111,14 @@ class CustomController extends Controller{
     public function action_ajaxMatchSentence(){
         
         $q = Yii::app()->request->getParam("q");
-       
-        if(!$q){
+        $pid = Yii::app()->request->getParam("pid");
+        
+        if(!$q or !$pid){
             die("error");
         }
         $tokens = explode(" ",$q);
         
-        $model = tbl_patternTree::model()->findByPk(1);
+        $model = tbl_patternTree::model()->findByPk($pid);
         $savedPattern = unserialize($model->object);
         
         $result = connectorStanfordParser::parse($q);
@@ -128,14 +129,15 @@ class CustomController extends Controller{
             //build the dependenci tree from the stanford response
             $depTree = new DependencieTree($s->$property); 
             
-            $matchResult = $savedPattern->matchAgainstTree($depTree);
+            $matchResult = $savedPattern->matchAgainstTreeBest($depTree);
             $matchs[] = ( $matchResult / (float) count($tokens) ) * 100;
         }
         
         $togo = array(
             "result"=>"success",
-            "depTree"=>  json_encode($depTree,JSON_PRETTY_PRINT),
-            "data"=>$matchs
+            "depTree"=>  $depTree,
+            "data"=>$matchs,
+            "pattern"=>$savedPattern
         );
         header('Content-Type: application/json');
         echo (json_encode($togo));
@@ -145,11 +147,13 @@ class CustomController extends Controller{
     public function action_ajaxMergeSentence(){
         
         $q = Yii::app()->request->getParam("q");
-        if(!$q){
+        $pid = Yii::app()->request->getParam("pid");
+        if(!$q or !$pid){
             die("error");
         }
         
-        $model = tbl_patternTree::model()->findByPk(1);
+        $model = tbl_patternTree::model()->findByPk($pid);
+        $model->saved_object = $model->object; //just in case
         $savedPattern = unserialize($model->object);
         
         $result = connectorStanfordParser::parse($q);
@@ -180,8 +184,9 @@ class CustomController extends Controller{
                 
         $nodeid = Yii::app()->request->getParam("nodeid");
         $value = Yii::app()->request->getParam("value");
+        $pid = Yii::app()->request->getParam("pid");
         
-        $model = tbl_patternTree::model()->findByPk(1);
+        $model = tbl_patternTree::model()->findByPk($pid);
         $patternTree = unserialize($model->object);
         
         $locateFunc = function($node) use ($nodeid){
@@ -217,6 +222,155 @@ class CustomController extends Controller{
             $primary_tag = connectorStanfordParser::getPrimaryTag($q);
             print_r($primary_tag);
         }
+    }
+    
+    public function actionTestSpeed(){
+        
+        print_r(json_encode(array("hello","world")));
+    }
+    
+    public function actionMarketplace(){
+        
+        $this->layout = "basic";
+        $this->render("/CustomViews/Marketplace");
+    }
+    
+    public function actionBots(){
+                 
+        $bots = tbl_bots::model()->findAll();
+        
+        $this->layout = "basic"; 
+        $this->render("/CustomViews/Bots",array("bots"=>$bots));
+    }
+    
+    public function actioneditBot(){
+        
+        $id = Yii::app()->request->getParam("id");        
+        $bot = tbl_bots::model()->findByPk($id);
+        
+        $this->layout = "basic";
+        $this->render("/CustomViews/editBot",array("bot"=>$bot));
+    }
+    
+    public function actioncreateTree(){
+        
+        $q = Yii::app()->request->getParam("q");
+        $action = Yii::app()->request->getParam("action");
+        $depTree = null;
+        $pathernTree = null;
+        
+        if(!$q or !$action){
+            die("invalid request");
+        }
+        
+        $result = connectorStanfordParser::parse($q);           
+
+        $property = "basic-dependencies";            
+        foreach($result->sentences as $s){
+            //build the dependenci tree from the stanford response
+            $depTree = new DependencieTree($s->$property); 
+            $pathernTree = new PathernTree($depTree);
+
+            $model = new tbl_patternTree();
+            $model->action_id = $action;
+            $model->initial_sentence = $q;
+            $model->object = serialize($pathernTree);
+            
+            $model->save();
+            $model->refresh();
+        }       
+        
+        $modPathernTree = $pathernTree;        
+        //$this->pageTitle= "Running on Custom Controller";
+        $this->layout = "basic";
+        $this->render("/CustomViews/StanfordTest",
+                array(
+                    "dependecieTree"=>$depTree,
+                    "patherTree"=>$pathernTree,
+                    "modPathernTree"=>$modPathernTree,
+                    "sentence"=>$q,
+                    "pid"=>$model->id
+                )
+                );
+    }
+    
+    public function actionrefineTree(){
+        
+        $id = Yii::app()->request->getParam("id");
+        
+        $model = tbl_patternTree::model()->findByPk($id);
+        $q = $model->initial_sentence;
+        $result = connectorStanfordParser::parse($q);           
+
+        $property = "basic-dependencies";            
+        foreach($result->sentences as $s){
+            //build the dependenci tree from the stanford response
+            $depTree = new DependencieTree($s->$property);           
+        }       
+        $pathernTree = unserialize($model->object);
+        $modPathernTree = $pathernTree;        
+        //$this->pageTitle= "Running on Custom Controller";
+        $this->layout = "basic";
+        $this->render("/CustomViews/StanfordTest",array("dependecieTree"=>$depTree,"patherTree"=>$pathernTree,"modPathernTree"=>$modPathernTree,"sentence"=>$q,"pid"=>$model->id));
+    }
+    
+    
+    public function action_ajaxtrimNode(){
+                
+        $pid = Yii::app()->request->getParam("pid");
+        $nid = Yii::app()->request->getParam("nid");
+        
+        if(!$pid or !$nid){
+            die("invalid request");
+        }
+        $model = tbl_patternTree::model()->findByPk($pid);
+        $patternTree = unserialize($model->object);
+        
+        $find = function($node)use($nid){           
+            return ((int)$node->id == (int)$nid) ? true : false;                            
+        };
+        
+        $patternTree->trim($find);
+        $model->object = serialize($patternTree);
+        $model->save();
+        
+        $togo = array(
+            "patternTree"=>$patternTree
+        );
+        print_r(json_encode($togo));
+        die;
+    }
+    
+    public function actionGoogleImport(){
+        
+        $connector = new connectorGoogle();
+        
+        $location =array(
+            "lat"=>27.773056,
+            "lon"=>-82.639999,
+            "radius"=>500);
+        
+        $places = $connector->getPlacesByLocation($location);
+        
+        if(isset($places->results) and is_array($places->results)){
+            foreach($places->results as $place){
+                
+                print_r("<pre>" );
+                print_r($place->name);
+                print_r("<br>");
+                print_R($place->place_id);
+                
+                $details = $connector->getPlaceDetails($place->place_id);                
+                
+                if(isset($details->result) and isset($details->result->website)){
+                    print_r("<br>");
+                    print_r($details->result->website);
+                }
+                
+                print_r("</pre>" );
+            }
+        }
+        
     }
 }
 
