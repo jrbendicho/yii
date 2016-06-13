@@ -350,7 +350,7 @@ class CustomController extends Controller{
             "lon"=>-82.639999,
             "radius"=>500);
         
-        $places = $connector->getPlacesByLocation($location);
+        $places = $connector->getPlacesByLocation($location,0,array("type"=>"art_gallery,bakery,beauty_salon,bar"));
         
         if(isset($places->results) and is_array($places->results)){
             foreach($places->results as $place){
@@ -364,7 +364,7 @@ class CustomController extends Controller{
                 
                 if(isset($details->result) and isset($details->result->website)){
                     print_r("<br>");
-                    print_r($details->result->website);
+                    print_r("<a href={$details->result->website}>{$details->result->website}</a>");
                 }
                 
                 print_r("</pre>" );
